@@ -19,4 +19,8 @@ call_user_func(function () {
             \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
             \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace
         );
+
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\T3G\SvgSanitizer\Updates\SanitizeExistingSVG::class]
+        = \T3G\SvgSanitizer\Updates\SanitizeExistingSVG::class;
+
 });

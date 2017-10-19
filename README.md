@@ -13,5 +13,12 @@ This means, that also an embedded PNG is removed. example:
    <image width="100" height="100" />
 ```
 
+## What this extension does
+- Hooks into FAL API: ``ResourceFactory::addFile()`` and ``ResourceFactory::replaceFile()``
+- Provide an upgrade wizard for existing SVG files (please read the warnings in the upgrade wizard carefully)
+
+## What this extension not does
+- ``GeneralUtility::upload_copy_move()`` is not covered
+
 ## Credits
 Thanks to Daryll Doyle and his [svg-sanitizer library](https://github.com/darylldoyle/svg-sanitizer)

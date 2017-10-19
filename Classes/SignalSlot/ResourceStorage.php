@@ -15,7 +15,7 @@ namespace T3G\SvgSanitizer\SignalSlot;
  * The TYPO3 project - inspiring people to share!
  */
 
-use enshrined\svgSanitize\Sanitizer;
+use T3G\SvgSanitizer\Service\SvgSanitizerService;
 use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
@@ -29,36 +29,30 @@ class ResourceStorage {
      * @param string $sourceFilePath
      * @param \TYPO3\CMS\Core\Resource\ResourceStorage $parentObject
      * @param DriverInterface $driver
+     *
+     * @throws \InvalidArgumentException
      */
     public function preFileAdd(&$targetFileName, $targetFolder, $sourceFilePath, $parentObject, $driver)
     {
         $fileParts = GeneralUtility::trimExplode('.', $targetFileName);
         $fileExtension = strtolower(array_pop($fileParts));
         if ($fileExtension === 'svg') {
-            $this->sanitizeSvgFile($sourceFilePath);
+            GeneralUtility::makeInstance(SvgSanitizerService::class)
+                ->sanitizeSvgFile($sourceFilePath);
         }
     }
 
     /**
      * @param FileInterface $file
      * @param string $localFilePath
+     *
+     * @throws \InvalidArgumentException
      */
     public function preFileReplace($file, $localFilePath)
     {
         if (strtolower($file->getExtension()) === 'svg') {
-            $this->sanitizeSvgFile($localFilePath);
+            GeneralUtility::makeInstance(SvgSanitizerService::class)
+                ->sanitizeSvgFile($localFilePath);
         }
-    }
-
-    /**
-     * @param string $fileNameAndPath
-     */
-    protected function sanitizeSvgFile($fileNameAndPath)
-    {
-        $sanitizer = new Sanitizer();
-        $sanitizer->removeRemoteReferences(true);
-        $dirtySVG = file_get_contents($fileNameAndPath);
-        $cleanSVG = $sanitizer->sanitize($dirtySVG);
-        file_put_contents($fileNameAndPath, $cleanSVG);
     }
 }
