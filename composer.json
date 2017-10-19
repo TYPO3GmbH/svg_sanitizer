@@ -1,7 +1,6 @@
 {
     "name": "t3g/svg-sanitizer",
     "description": "Sanitize SVG files on upload, works with all fall uploads.",
-    "minimum-stability": "stable",
     "type": "typo3-cms-extension",
     "license": "GPL-2.0+",
     "authors": [
