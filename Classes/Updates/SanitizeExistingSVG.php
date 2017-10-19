@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
 /**
- * HeadlineUpdate
+ * Class SanitizeExistingSVG
  */
 class SanitizeExistingSVG extends AbstractUpdate
 {
@@ -43,7 +43,6 @@ class SanitizeExistingSVG extends AbstractUpdate
         }
         return true;
     }
-
 
     /**
      * Second step: Ask user to sanitize existing SVG files

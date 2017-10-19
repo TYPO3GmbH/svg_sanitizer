@@ -21,7 +21,11 @@ use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class ResourceStorage {
+/**
+ * Class ResourceStorage
+ */
+class ResourceStorage
+{
 
     /**
      * @param string $targetFileName

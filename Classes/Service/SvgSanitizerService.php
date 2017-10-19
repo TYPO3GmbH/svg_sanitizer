@@ -17,7 +17,11 @@ namespace T3G\SvgSanitizer\Service;
 
 use enshrined\svgSanitize\Sanitizer;
 
-class SvgSanitizerService {
+/**
+ * Class SvgSanitizerService
+ */
+class SvgSanitizerService
+{
 
     /**
      * @param string $fileNameAndPath
