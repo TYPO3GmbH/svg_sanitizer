@@ -5,11 +5,13 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function () {
-
-    @include 'phar://' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('svg_sanitizer')
-        . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
-    @include 'phar://' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('svg_sanitizer')
-        . 'Libraries/symfony-finder.phar/vendor/autoload.php';
+    $extensionBasePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('svg_sanitizer');
+    if (!class_exists(\enshrined\svgSanitize\Sanitizer::class)) {
+        @include 'phar://' . $extensionBasePath . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
+    }
+    if (!class_exists(Symfony\Component\Finder\Finder::class)) {
+        @include 'phar://' . $extensionBasePath . 'Libraries/symfony-finder.phar/vendor/autoload.php';
+    }
 
     \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class)
         ->connect(
