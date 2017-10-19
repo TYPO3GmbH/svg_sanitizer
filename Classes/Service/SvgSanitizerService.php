@@ -32,6 +32,8 @@ class SvgSanitizerService {
         $sanitizer->removeRemoteReferences(true);
         $dirtySVG = file_get_contents($fileNameAndPath);
         $cleanSVG = $sanitizer->sanitize($dirtySVG);
-        file_put_contents($outputFileNameAndPath, $cleanSVG);
+        if ($cleanSVG !== $dirtySVG) {
+            file_put_contents($outputFileNameAndPath, $cleanSVG);
+        }
     }
 }
