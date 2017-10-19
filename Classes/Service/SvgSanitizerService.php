@@ -32,12 +32,23 @@ class SvgSanitizerService
         if ($outputFileNameAndPath === null) {
             $outputFileNameAndPath = $fileNameAndPath;
         }
-        $sanitizer = new Sanitizer();
-        $sanitizer->removeRemoteReferences(true);
         $dirtySVG = file_get_contents($fileNameAndPath);
-        $cleanSVG = $sanitizer->sanitize($dirtySVG);
+        $cleanSVG = $this->sanitizeAndReturnSvgFile($fileNameAndPath);
         if ($cleanSVG !== $dirtySVG) {
             file_put_contents($outputFileNameAndPath, $cleanSVG);
         }
+    }
+
+    /**
+     * @param string $fileNameAndPath
+     *
+     * @return string
+     */
+    public function sanitizeAndReturnSvgFile($fileNameAndPath)
+    {
+        $sanitizer = new Sanitizer();
+        $sanitizer->removeRemoteReferences(true);
+        $dirtySVG = file_get_contents($fileNameAndPath);
+        return $sanitizer->sanitize($dirtySVG);
     }
 }

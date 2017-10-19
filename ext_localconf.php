@@ -9,9 +9,6 @@ call_user_func(function () {
     if (!class_exists(\enshrined\svgSanitize\Sanitizer::class)) {
         @include 'phar://' . $extensionBasePath . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
     }
-    if (!class_exists(Symfony\Component\Finder\Finder::class)) {
-        @include 'phar://' . $extensionBasePath . 'Libraries/symfony-finder.phar/vendor/autoload.php';
-    }
 
     \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class)
         ->connect(

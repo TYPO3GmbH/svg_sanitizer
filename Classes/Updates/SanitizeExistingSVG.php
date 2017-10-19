@@ -15,8 +15,10 @@ namespace T3G\SvgSanitizer\Updates;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Symfony\Component\Finder\Finder;
 use T3G\SvgSanitizer\Service\SvgSanitizerService;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
+use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
@@ -80,6 +82,8 @@ class SanitizeExistingSVG extends AbstractUpdate
      * @param string &$customMessage Custom message
      *
      * @return bool
+     * @throws \RuntimeException
+     * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
      * @throws \InvalidArgumentException
      */
     public function performUpdate(array &$databaseQueries, &$customMessage)
@@ -91,14 +95,32 @@ class SanitizeExistingSVG extends AbstractUpdate
         $sanitize = (int)$requestParams['values']['T3G\SvgSanitizer\Updates\SanitizeExistingSVG']['sanitize'];
 
         if ($sanitize === 1) {
-            $finder = new Finder();
-            $finder->files()
-                ->in(PATH_site . 'fileadmin/')
-                ->name('*.svg');
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable('sys_file_storage');
+            $rows = $queryBuilder
+                ->select('uid')
+                ->from('sys_file_storage')
+                ->where($queryBuilder->expr()->eq('is_writable', 1))
+                ->execute()
+                ->fetchAll();
 
-            $svgSanitizerService = GeneralUtility::makeInstance(SvgSanitizerService::class);
-            foreach ($finder as $file) {
-                $svgSanitizerService->sanitizeSvgFile($file->getRealPath());
+            $resourceFactory = ResourceFactory::getInstance();
+            foreach ($rows as $row) {
+                $filter = GeneralUtility::makeInstance(FileExtensionFilter::class);
+                $filter->setAllowedFileExtensions(['svg']);
+
+                $storage = $resourceFactory->getStorageObject((int)$row['uid']);
+                $storage->setFileAndFolderNameFilters([[$filter, 'filterFileList']]);
+                $files = $storage->getFilesInFolder($storage->getRootLevelFolder());
+
+                $svgSanitizerService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+                foreach ($files as $file) {
+                    $oldFileContent = $file->getContents();
+                    $newFileContent = $svgSanitizerService->sanitizeAndReturnSvgFile($file->getForLocalProcessing(false));
+                    if ($oldFileContent !== $newFileContent) {
+                        $file->setContents($newFileContent);
+                    }
+                }
             }
         }
 
