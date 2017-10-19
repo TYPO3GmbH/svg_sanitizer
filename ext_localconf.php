@@ -28,6 +28,10 @@ call_user_func(function () {
             \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace
         );
 
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processUpload']['svg_sanitizer']
+        = \T3G\SvgSanitizer\Hooks\DataHandlerHook::class;
+
+
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\T3G\SvgSanitizer\Updates\SanitizeExistingSVG::class]
         = \T3G\SvgSanitizer\Updates\SanitizeExistingSVG::class;
 

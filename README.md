@@ -15,6 +15,7 @@ This means, that also an embedded PNG is removed. example:
 
 ## What this extension does
 - Hooks into FAL API: ``ResourceFactory::addFile()`` and ``ResourceFactory::replaceFile()``
+- Hooks into DataHandler: Handling files for group/select function
 - Provide an upgrade wizard for existing SVG files (please read the warnings in the upgrade wizard carefully)
 
 ## What this extension not does
