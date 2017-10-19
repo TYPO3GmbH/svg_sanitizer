@@ -5,6 +5,12 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function () {
+
+    @include 'phar://' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('svg_sanitizer')
+        . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
+    @include 'phar://' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('svg_sanitizer')
+        . 'Libraries/symfony-finder.phar/vendor/autoload.php';
+
     \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class)
         ->connect(
             \TYPO3\CMS\Core\Resource\ResourceStorage::class,
