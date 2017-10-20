@@ -111,12 +111,12 @@ class SanitizeExistingSVG extends AbstractUpdate
 
                 $storage = $resourceFactory->getStorageObject((int)$row['uid']);
                 $storage->setFileAndFolderNameFilters([[$filter, 'filterFileList']]);
-                $files = $storage->getFilesInFolder($storage->getRootLevelFolder());
+                $files = $storage->getFilesInFolder($storage->getRootLevelFolder(), 0, 0, true, true);
 
                 $svgSanitizerService = GeneralUtility::makeInstance(SvgSanitizerService::class);
                 foreach ($files as $file) {
                     $oldFileContent = $file->getContents();
-                    $newFileContent = $svgSanitizerService->sanitizeAndReturnSvgFile($file->getForLocalProcessing(false));
+                    $newFileContent = $svgSanitizerService->sanitizeAndReturnSvgContent($oldFileContent);
                     if ($oldFileContent !== $newFileContent) {
                         $file->setContents($newFileContent);
                     }
