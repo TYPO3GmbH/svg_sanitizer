@@ -16,7 +16,8 @@
         "enshrined/svg-sanitize": "0.7.2"
     },
     "require": {
-        "typo3/cms-core": "^7.6 || ^8.7 || <9.9"
+        "typo3/cms-core": "^7.6 || ^8.7 || <9.9",
+        "typo3/cms-install": "^7.6 || ^8.7 || <9.9"
     },
     "autoload": {
         "psr-4": {
@@ -29,6 +30,6 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "5.7.5"
+        "phpunit/phpunit": "^6.2"
     }
 }
