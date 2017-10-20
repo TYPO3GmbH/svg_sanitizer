@@ -1,6 +1,6 @@
 <?php
 
-namespace T3G\SvgSanitizer\Tests\Service;
+namespace T3G\SvgSanitizer\Tests\Unit\Service;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,7 @@ namespace T3G\SvgSanitizer\Tests\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use enshrined\svgSanitize\Sanitizer;
 use T3G\SvgSanitizer\Service\SvgSanitizerService;
 use TYPO3\TestingFramework\Core\BaseTestCase;
 
@@ -23,14 +24,22 @@ use TYPO3\TestingFramework\Core\BaseTestCase;
  */
 class SvgSanitizerServiceTest extends BaseTestCase
 {
-    public function setUp()
+    /**
+     * Constructs a test case with the given name.
+     *
+     * @param string $name
+     * @param array  $data
+     * @param string $dataName
+     */
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
-        if (!class_exists(\enshrined\svgSanitize\Sanitizer::class)) {
-            $extensionBasePath = dirname(__DIR__ . '/../../../');
+        if (!class_exists(Sanitizer::class)) {
+            $extensionBasePath = dirname(__DIR__ . '/../../../../');
             @include 'phar://' . $extensionBasePath . '/Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
         }
-        parent::setUp();
+        parent::__construct($name, $data, $dataName);
     }
+
     /**
      * @return array
      */
@@ -50,7 +59,7 @@ class SvgSanitizerServiceTest extends BaseTestCase
      */
     public function testThatImagesCanBeCleaned($inputFile, $expectedOutputFile)
     {
-        $basePath = dirname(__DIR__ . '/../../') . '/Fixtures/';
+        $basePath = dirname(__DIR__ . '/../../../') . '/Fixtures/';
         $service = new SvgSanitizerService();
         self::assertStringEqualsFile(
             $basePath . $expectedOutputFile,
