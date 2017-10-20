@@ -33,22 +33,21 @@ class SvgSanitizerService
             $outputFileNameAndPath = $fileNameAndPath;
         }
         $dirtySVG = file_get_contents($fileNameAndPath);
-        $cleanSVG = $this->sanitizeAndReturnSvgFile($fileNameAndPath);
+        $cleanSVG = $this->sanitizeAndReturnSvgContent($dirtySVG);
         if ($cleanSVG !== $dirtySVG) {
             file_put_contents($outputFileNameAndPath, $cleanSVG);
         }
     }
 
     /**
-     * @param string $fileNameAndPath
+     * @param string $dirtySVG
      *
      * @return string
      */
-    public function sanitizeAndReturnSvgFile($fileNameAndPath)
+    public function sanitizeAndReturnSvgContent($dirtySVG)
     {
         $sanitizer = new Sanitizer();
         $sanitizer->removeRemoteReferences(true);
-        $dirtySVG = file_get_contents($fileNameAndPath);
         return $sanitizer->sanitize($dirtySVG);
     }
 }
