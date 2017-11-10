@@ -12,12 +12,12 @@
     ],
     "replace": {
         "svg_sanitizer": "self.version",
-        "t3g/svg_sanitizer": "self.version",
-        "enshrined/svg-sanitize": "0.7.2"
+        "t3g/svg_sanitizer": "self.version"
     },
     "require": {
         "typo3/cms-core": "^7.6 || ^8.7 || <9.9",
-        "typo3/cms-install": "^7.6 || ^8.7 || <9.9"
+        "typo3/cms-install": "^7.6 || ^8.7 || <9.9",
+        "enshrined/svg-sanitize": "0.7.2"
     },
     "autoload": {
         "psr-4": {
