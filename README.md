@@ -16,10 +16,9 @@ This means, that also an embedded PNG is removed. example:
 ## What this extension does
 - Hooks into FAL API: ``ResourceFactory::addFile()`` and ``ResourceFactory::replaceFile()``
 - Hooks into DataHandler: Handling files for group/select function
+- Hooks into ``GeneralUtility::upload_copy_move()``
+- Hooks into ``GeneralUtility::upload_to_tempfile()``
 - Provide an upgrade wizard for existing SVG files (please read the warnings in the upgrade wizard carefully)
-
-## What this extension not does
-- ``GeneralUtility::upload_copy_move()`` is not covered
 
 ## Credits
 Thanks to Daryll Doyle and his [svg-sanitizer library](https://github.com/darylldoyle/svg-sanitizer)
