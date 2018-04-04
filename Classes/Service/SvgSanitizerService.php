@@ -27,11 +27,12 @@ class SvgSanitizerService
     /**
      * @param string $fileNameAndPath
      * @return bool
+     * @throws \InvalidArgumentException
      */
     public function isSvgFile($fileNameAndPath)
     {
         $fileInfo = GeneralUtility::makeInstance(FileInfo::class, $fileNameAndPath);
-        return $fileInfo->getMimeType() === 'image/svg+xml';
+        return \in_array($fileInfo->getMimeType(), ['image/svg+xml', 'application/svg+xml'], true);
     }
 
     /**
