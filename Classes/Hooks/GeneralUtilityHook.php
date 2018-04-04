@@ -41,11 +41,9 @@ class GeneralUtilityHook
     public function processMoveUploadedFile(array &$params, &$ref)
     {
         $filename = $params['source'];
-        $fileParts = GeneralUtility::trimExplode('.', $filename);
-        $fileExtension = strtolower(array_pop($fileParts));
-        if ($fileExtension === 'svg') {
-            GeneralUtility::makeInstance(SvgSanitizerService::class)
-                ->sanitizeSvgFile($filename);
+        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        if ($svgService->isSvgFile($filename)) {
+            $svgService->sanitizeSvgFile($filename);
         }
     }
 }

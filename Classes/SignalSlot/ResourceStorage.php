@@ -38,11 +38,9 @@ class ResourceStorage
      */
     public function preFileAdd(&$targetFileName, $targetFolder, $sourceFilePath, $parentObject, $driver)
     {
-        $fileParts = GeneralUtility::trimExplode('.', $targetFileName);
-        $fileExtension = strtolower(array_pop($fileParts));
-        if ($fileExtension === 'svg') {
-            GeneralUtility::makeInstance(SvgSanitizerService::class)
-                ->sanitizeSvgFile($sourceFilePath);
+        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        if ($svgService->isSvgFile($sourceFilePath)) {
+            $svgService->sanitizeSvgFile($sourceFilePath);
         }
     }
 
@@ -54,9 +52,9 @@ class ResourceStorage
      */
     public function preFileReplace($file, $localFilePath)
     {
-        if (strtolower($file->getExtension()) === 'svg') {
-            GeneralUtility::makeInstance(SvgSanitizerService::class)
-                ->sanitizeSvgFile($localFilePath);
+        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        if ($svgService->isSvgFile($localFilePath)) {
+            $svgService->sanitizeSvgFile($localFilePath);
         }
     }
 }

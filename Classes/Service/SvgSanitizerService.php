@@ -16,12 +16,23 @@ namespace T3G\SvgSanitizer\Service;
  */
 
 use enshrined\svgSanitize\Sanitizer;
+use TYPO3\CMS\Core\Type\File\FileInfo;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class SvgSanitizerService
  */
 class SvgSanitizerService
 {
+    /**
+     * @param string $fileNameAndPath
+     * @return bool
+     */
+    public function isSvgFile($fileNameAndPath)
+    {
+        $fileInfo = GeneralUtility::makeInstance(FileInfo::class, $fileNameAndPath);
+        return $fileInfo->getMimeType() === 'image/svg+xml';
+    }
 
     /**
      * @param string $fileNameAndPath
