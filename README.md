@@ -45,3 +45,7 @@ possible to invoke `~/.composer/vendor/bin/phar-composer)` directly)
 cd typo3conf/ext/svg_sanitizer
 phar-composer build enshrined/svg-sanitize Libraries/enshrined-svg-sanitize.phar
 ```
+
+## Issue Reporting
+
+Please report any issues with the extension in our [Service Desk](https://jira.typo3.com/servicedesk/customer/portal/3/create/122).
