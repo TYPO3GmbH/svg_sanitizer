@@ -4,7 +4,7 @@
  ************************************************************************/
 $EM_CONF[$_EXTKEY] = [
     'title' => 'SVG Sanitizer',
-    'description' => 'Sanitize SVG files on upload, works with all fall uploads.',
+    'description' => 'Sanitize SVG files on upload',
     'category' => 'extension',
     'constraints' => [
         'depends' => [
