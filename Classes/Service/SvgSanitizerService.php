@@ -17,6 +17,7 @@ namespace T3G\SvgSanitizer\Service;
 
 use enshrined\svgSanitize\Sanitizer;
 use TYPO3\CMS\Core\Type\File\FileInfo;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -38,6 +39,7 @@ class SvgSanitizerService
     /**
      * @param string $fileNameAndPath
      * @param string $outputFileNameAndPath
+     * @throws \BadFunctionCallException
      */
     public function sanitizeSvgFile($fileNameAndPath, $outputFileNameAndPath = null)
     {
@@ -55,9 +57,14 @@ class SvgSanitizerService
      * @param string $dirtySVG
      *
      * @return string
+     * @throws \BadFunctionCallException
      */
     public function sanitizeAndReturnSvgContent($dirtySVG)
     {
+        $extensionBasePath = ExtensionManagementUtility::extPath('svg_sanitizer');
+        if (!class_exists(Sanitizer::class)) {
+            @include 'phar://' . $extensionBasePath . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
+        }
         $sanitizer = new Sanitizer();
         $sanitizer->removeRemoteReferences(true);
         return $sanitizer->sanitize($dirtySVG);

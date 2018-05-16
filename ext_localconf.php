@@ -5,19 +5,15 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function () {
-    $extensionBasePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('svg_sanitizer');
-    if (!class_exists(\enshrined\svgSanitize\Sanitizer::class)) {
-        @include 'phar://' . $extensionBasePath . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
-    }
-
-    \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class)
+    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
+    $signalSlotDispatcher
         ->connect(
             \TYPO3\CMS\Core\Resource\ResourceStorage::class,
             \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileAdd,
             \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
             \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileAdd
         );
-    \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class)
+    $signalSlotDispatcher
         ->connect(
             \TYPO3\CMS\Core\Resource\ResourceStorage::class,
             \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace,
