@@ -57,4 +57,22 @@ class ResourceStorage
             $svgService->sanitizeSvgFile($localFilePath);
         }
     }
+
+    /**
+     * @param FileInterface $file
+     * @param string $content
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function postFileSetContents($file, $content)
+    {
+        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        if ($svgService->isSvgFile($file->getForLocalProcessing(false))) {
+            $newContent = $svgService->sanitizeAndReturnSvgContent($content);
+            // prevent endless loop because this hook is called again and again and again and...
+            if ($newContent !== $content) {
+                $file->setContents($newContent);
+            }
+        }
+    }
 }

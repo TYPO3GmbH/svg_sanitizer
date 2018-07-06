@@ -20,6 +20,13 @@ call_user_func(function () {
             \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
             \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace
         );
+    $signalSlotDispatcher
+        ->connect(
+            \TYPO3\CMS\Core\Resource\ResourceStorage::class,
+            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileSetContents,
+            \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
+            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileSetContents
+        );
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processUpload']['svg_sanitizer']
         = \T3G\SvgSanitizer\Hooks\DataHandlerHook::class;

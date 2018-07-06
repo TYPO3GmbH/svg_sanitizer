@@ -17,6 +17,7 @@ This means, that also an embedded PNG is removed. example:
 ## What this extension does
 
 - Hooks into FAL API: ``ResourceFactory::addFile()`` and ``ResourceFactory::replaceFile()``
+- Hooks into FAL API: ``ResourceStorage::setFileContents()``
 - Hooks into DataHandler: Handling files for group/select function
 - Hooks into ``GeneralUtility::upload_copy_move()``
 - Hooks into ``GeneralUtility::upload_to_tempfile()``
