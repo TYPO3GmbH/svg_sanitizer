@@ -16,6 +16,7 @@ namespace T3G\SvgSanitizer\Tests\Unit\Service;
  */
 
 use enshrined\svgSanitize\Sanitizer;
+use Symfony\Component\Finder\Finder;
 use T3G\SvgSanitizer\Service\SvgSanitizerService;
 use TYPO3\TestingFramework\Core\BaseTestCase;
 
@@ -45,11 +46,18 @@ class SvgSanitizerServiceTest extends BaseTestCase
      */
     public function svgImagesDataProvider()
     {
-        return [
-            'TYPO3_Logo_Clean' => ['DirtySVG/TYPO3_Logo_Clean.svg', 'CleanSVG/TYPO3_Logo_Clean.svg'],
-            'TYPO3_Logo_Script' => ['DirtySVG/TYPO3_Logo_Script.svg', 'CleanSVG/TYPO3_Logo_Script.svg'],
-            'TYPO3_Logo_Data' => ['DirtySVG/TYPO3_Logo_Data.svg', 'CleanSVG/TYPO3_Logo_Data.svg'],
-        ];
+        $basePath = dirname(__DIR__ . '/../../../') . '/Fixtures/';
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in($basePath . 'DirtySVG/')
+            ->name('*.svg');
+        $data = [];
+        foreach ($finder as $file) {
+            $fileName = $file->getFilename();
+            $data[$fileName] = ['DirtySVG/' . $fileName, 'CleanSVG/' . $fileName];
+        }
+        return $data;
     }
 
     /**
