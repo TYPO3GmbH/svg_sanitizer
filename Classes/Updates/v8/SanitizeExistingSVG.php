@@ -1,6 +1,6 @@
 <?php
 
-namespace T3G\SvgSanitizer\Updates;
+namespace T3G\SvgSanitizer\Updates\v8;
 
 /*
  * This file is part of the TYPO3 extension svg_sanitizer.
@@ -15,10 +15,8 @@ namespace T3G\SvgSanitizer\Updates;
  * The TYPO3 project - inspiring people to share!
  */
 
-use T3G\SvgSanitizer\Service\SvgSanitizerService;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
+use T3G\SvgSanitizer\Service\UpdateService;
+use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
@@ -83,7 +81,6 @@ class SanitizeExistingSVG extends AbstractUpdate
      *
      * @return bool
      * @throws \RuntimeException
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
      * @throws \InvalidArgumentException
      */
     public function performUpdate(array &$databaseQueries, &$customMessage)
@@ -95,35 +92,11 @@ class SanitizeExistingSVG extends AbstractUpdate
         $sanitize = (int)$requestParams['values']['T3G\SvgSanitizer\Updates\SanitizeExistingSVG']['sanitize'];
 
         if ($sanitize === 1) {
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-                ->getQueryBuilderForTable('sys_file_storage');
-            $rows = $queryBuilder
-                ->select('uid')
-                ->from('sys_file_storage')
-                ->where($queryBuilder->expr()->eq('is_writable', 1))
-                ->execute()
-                ->fetchAll();
-
-            $resourceFactory = ResourceFactory::getInstance();
-            foreach ($rows as $row) {
-                $filter = GeneralUtility::makeInstance(FileExtensionFilter::class);
-                $filter->setAllowedFileExtensions(['svg']);
-
-                $storage = $resourceFactory->getStorageObject((int)$row['uid']);
-                $storage->setFileAndFolderNameFilters([[$filter, 'filterFileList']]);
-                $files = $storage->getFilesInFolder($storage->getRootLevelFolder(), 0, 0, true, true);
-
-                $svgSanitizerService = GeneralUtility::makeInstance(SvgSanitizerService::class);
-                foreach ($files as $file) {
-                    $oldFileContent = $file->getContents();
-                    $newFileContent = $svgSanitizerService->sanitizeAndReturnSvgContent($oldFileContent);
-                    if ($oldFileContent !== $newFileContent) {
-                        $file->setContents($newFileContent);
-                    }
-                }
-            }
+            GeneralUtility::makeInstance(UpdateService::class)->executeUpdate();
         }
 
+        // Mark v9 upgrade wizard also as done (bad hack, but required)
+        GeneralUtility::makeInstance(Registry::class)->set('installUpdate', 'T3G\SvgSanitizer\Updates\v9\SanitizeExistingSVG', 1);
         $this->markWizardAsDone();
         return true;
     }

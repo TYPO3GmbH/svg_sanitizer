@@ -20,9 +20,9 @@
         "t3g/svg_sanitizer": "self.version"
     },
     "require": {
-        "typo3/cms-core": "^7.6.27 || ^8.7.13 || ^9.2 || ^10.1",
-        "typo3/cms-extbase": "^7.6.27 || ^8.7.13 || ^9.2 || ^10.1",
-        "typo3/cms-install": "^7.6.27 || ^8.7.13 || ^9.2 || ^10.1",
+        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1",
+        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1",
+        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1",
         "enshrined/svg-sanitize": "0.10.0"
     },
     "autoload": {
