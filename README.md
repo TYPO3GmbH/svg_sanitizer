@@ -55,4 +55,4 @@ phar-composer build enshrined/svg-sanitize Libraries/enshrined-svg-sanitize.phar
 
 ## Issue Reporting
 
-Please report any issues with the extension in our [Service Desk](https://jira.typo3.com/servicedesk/customer/portal/3/create/122).
+Please report any issues with the extension at [Github](https://github.com/TYPO3GmbH/svg_sanitizer/issues).
