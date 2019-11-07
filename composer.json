@@ -16,14 +16,19 @@
         }
     ],
     "replace": {
-        "svg_sanitizer": "self.version",
         "t3g/svg_sanitizer": "self.version"
     },
-    "require": {
-        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1",
-        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1",
-        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1",
-        "enshrined/svg-sanitize": "0.10.0"
+    "config": {
+        "sort-packages": true,
+        "discard-changes": true,
+        "vendor-dir": ".build/vendor",
+        "bin-dir": ".build/bin"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "svg_sanitize",
+            "web-dir": ".build"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -35,7 +40,14 @@
             "T3G\\SvgSanitizer\\Tests\\": "Tests/"
         }
     },
+    "require": {
+        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1",
+        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1",
+        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1",
+        "enshrined/svg-sanitize": "0.10.0"
+    },
     "require-dev": {
+        "bk2k/extension-helper": "^1.0",
         "phpunit/phpunit": "^6.2",
         "roave/security-advisories": "dev-master"
     }
