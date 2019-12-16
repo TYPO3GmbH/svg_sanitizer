@@ -41,10 +41,10 @@
         }
     },
     "require": {
+        "enshrined/svg-sanitize": "^0.13.2",
         "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1",
         "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1",
-        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1",
-        "enshrined/svg-sanitize": "0.13.0"
+        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1"
     },
     "require-dev": {
         "bk2k/extension-helper": "^1.0",
