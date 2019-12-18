@@ -28,6 +28,9 @@
         "typo3/cms": {
             "extension-key": "svg_sanitizer",
             "web-dir": ".build"
+        },
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
         }
     },
     "autoload": {
