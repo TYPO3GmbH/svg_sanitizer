@@ -26,7 +26,7 @@
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "svg_sanitize",
+            "extension-key": "svg_sanitizer",
             "web-dir": ".build"
         }
     },
