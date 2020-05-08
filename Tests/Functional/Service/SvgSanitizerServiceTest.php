@@ -1,6 +1,6 @@
 <?php
 
-namespace T3G\SvgSanitizer\Tests\Unit\Service;
+namespace T3G\SvgSanitizer\Tests\Functional\Service;
 
 /*
  * This file is part of the TYPO3 extension svg_sanitizer.
@@ -18,12 +18,12 @@ namespace T3G\SvgSanitizer\Tests\Unit\Service;
 use enshrined\svgSanitize\Sanitizer;
 use Symfony\Component\Finder\Finder;
 use T3G\SvgSanitizer\Service\SvgSanitizerService;
-use TYPO3\TestingFramework\Core\BaseTestCase;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * Class SvgSanitizerService
  */
-class SvgSanitizerServiceTest extends BaseTestCase
+class SvgSanitizerServiceTest extends FunctionalTestCase
 {
     /**
      * Constructs a test case with the given name.
@@ -34,6 +34,8 @@ class SvgSanitizerServiceTest extends BaseTestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
+        $this->testExtensionsToLoad[] = 'web/typo3conf/ext/svg_sanitizer';
+
         if (!class_exists(Sanitizer::class)) {
             $extensionBasePath = dirname(__DIR__ . '/../../../../');
             @include 'phar://' . $extensionBasePath . '/Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';

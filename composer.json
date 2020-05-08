@@ -1,30 +1,44 @@
 {
     "name": "t3g/svg-sanitizer",
-    "description": "Sanitize SVG files on upload",
     "type": "typo3-cms-extension",
+    "description": "Sanitize SVG files on upload",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "TYPO3 GmbH",
-            "role": "Developer",
-            "homepage": "https://typo3.com/"
+            "homepage": "https://typo3.com/",
+            "role": "Developer"
         },
         {
             "name": "Frank Nägler",
-            "role": "Developer",
-            "homepage": "https://naegler.hamburg/"
+            "homepage": "https://naegler.hamburg/",
+            "role": "Developer"
         }
     ],
+    "require": {
+        "enshrined/svg-sanitize": "^0.13.2",
+        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1",
+        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1",
+        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1"
+    },
     "replace": {
         "t3g/svg_sanitizer": "self.version"
     },
+    "require-dev": {
+        "bk2k/extension-helper": "^1.0",
+        "roave/security-advisories": "dev-master",
+        "typo3/testing-framework": "^2 || ^4.9 || ^5.0 || ^6.2"
+    },
     "config": {
-        "sort-packages": true,
+        "bin-dir": ".build/bin",
         "discard-changes": true,
-        "vendor-dir": ".build/vendor",
-        "bin-dir": ".build/bin"
+        "sort-packages": true,
+        "vendor-dir": ".build/vendor"
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
         "typo3/cms": {
             "extension-key": "svg_sanitizer",
             "web-dir": ".build"
@@ -43,15 +57,13 @@
             "T3G\\SvgSanitizer\\Tests\\": "Tests/"
         }
     },
-    "require": {
-        "enshrined/svg-sanitize": "^0.13.2",
-        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1",
-        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1",
-        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1"
-    },
-    "require-dev": {
-        "bk2k/extension-helper": "^1.0",
-        "phpunit/phpunit": "^6.2",
-        "roave/security-advisories": "dev-master"
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .build/web/typo3conf/ext/",
+            "[ -L .build/web/typo3conf/ext/svg_sanitizer ] || ln -snvf ../../../../. .build/web/typo3conf/ext/svg_sanitizer"
+        ],
+        "t3g:test:php:functional": [
+            "phpunit -c Build/FunctionalTest.xml --testsuite \"Functional Test Suite\""
+        ]
     }
 }
