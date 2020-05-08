@@ -26,6 +26,7 @@
     },
     "require-dev": {
         "bk2k/extension-helper": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.14",
         "roave/security-advisories": "dev-master",
         "typo3/testing-framework": "^2 || ^4.9 || ^5.0 || ^6.2"
     },
@@ -61,6 +62,9 @@
         "post-autoload-dump": [
             "mkdir -p .build/web/typo3conf/ext/",
             "[ -L .build/web/typo3conf/ext/svg_sanitizer ] || ln -snvf ../../../../. .build/web/typo3conf/ext/svg_sanitizer"
+        ],
+        "t3g:cgl": [
+            "php-cs-fixer fix --config Build/.php_cs.dist"
         ],
         "t3g:test:php:functional": [
             "phpunit -c Build/FunctionalTest.xml --testsuite \"Functional Test Suite\""

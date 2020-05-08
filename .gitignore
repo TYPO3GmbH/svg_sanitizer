@@ -10,4 +10,4 @@ crashlytics.properties
 crashlytics-build.properties
 composer.lock
 composer.phar
-
+.php_cs.cache
