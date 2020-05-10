@@ -31,6 +31,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class SvgSanitizerService
 {
+    protected $possibleMimeTypes = ['image/svg', 'image/svg+xml', 'application/svg', 'application/svg+xml'];
+
     /**
      * @param string $fileNameAndPath
      * @return bool
@@ -39,7 +41,8 @@ class SvgSanitizerService
     public function isSvgFile($fileNameAndPath)
     {
         $fileInfo = GeneralUtility::makeInstance(FileInfo::class, $fileNameAndPath);
-        return \in_array($fileInfo->getMimeType(), ['image/svg+xml', 'application/svg+xml'], true);
+        return $fileInfo->getExtension() === 'svg'
+            || \in_array(strtolower($fileInfo->getMimeType()), $this->possibleMimeTypes, true);
     }
 
     /**
