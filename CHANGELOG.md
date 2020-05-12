@@ -1,3 +1,20 @@
+# 1.0.3
+
+## TASK
+- [TASK] Add Build folder to gitattributes 763a245
+- [TASK] Add more test files 63eea9e
+- [TASK] Fix invalid composer.json e2fea03
+- [TASK] Update "enshrined/svg-sanitize" to version 0.13.3 9b18fe5
+- [TASK] Add github action configuration 904354d
+- [TASK] Add PHP Linter 5b9134b
+- [TASK] Add PHP CS Fixer fbd1760
+- [TASK] Cleanup Test-Setup 006e3b9
+
+## BUGFIX
+- [BUGFIX] Scan files with extension svg and other mime-types fa6a35b
+- [BUGFIX] Fix test file 29dd7dc
+- [BUGFIX] Fix github actions 75f7b3b
+
 # 1.0.2
 
 ## TASK
