@@ -39,7 +39,9 @@ class UpdateService
             ->execute()
             ->fetchAll();
 
-        $resourceFactory = ResourceFactory::getInstance();
+        $resourceFactory = method_exists(ResourceFactory::class, 'getInstance')
+            ? ResourceFactory::getInstance() // before v11 this method exists
+            : GeneralUtility::makeInstance(ResourceFactory::class);
         foreach ($rows as $row) {
             $filter = GeneralUtility::makeInstance(FileExtensionFilter::class);
             $filter->setAllowedFileExtensions(['svg']);

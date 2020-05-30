@@ -5,28 +5,34 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function () {
-    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
-    $signalSlotDispatcher
-        ->connect(
-            \TYPO3\CMS\Core\Resource\ResourceStorage::class,
-            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileAdd,
-            \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
-            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileAdd
-        );
-    $signalSlotDispatcher
-        ->connect(
-            \TYPO3\CMS\Core\Resource\ResourceStorage::class,
-            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace,
-            \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
-            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace
-        );
-    $signalSlotDispatcher
-        ->connect(
-            \TYPO3\CMS\Core\Resource\ResourceStorage::class,
-            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileSetContents,
-            \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
-            \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileSetContents
-        );
+    if (!defined('TYPO3_version')) {
+        define('TYPO3_version', (new \TYPO3\CMS\Core\Information\Typo3Version())->getVersion());
+    }
+    if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 100400) {
+        // Since 10.4 we use the PSR events, see Configuration/Services.yaml
+        $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
+        $signalSlotDispatcher
+            ->connect(
+                \TYPO3\CMS\Core\Resource\ResourceStorage::class,
+                \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileAdd,
+                \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
+                \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileAdd
+            );
+        $signalSlotDispatcher
+            ->connect(
+                \TYPO3\CMS\Core\Resource\ResourceStorage::class,
+                \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace,
+                \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
+                \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileReplace
+            );
+        $signalSlotDispatcher
+            ->connect(
+                \TYPO3\CMS\Core\Resource\ResourceStorage::class,
+                \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileSetContents,
+                \T3G\SvgSanitizer\SignalSlot\ResourceStorage::class,
+                \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileSetContents
+            );
+    }
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Core\Utility\GeneralUtility']['moveUploadedFile'][]
         = \T3G\SvgSanitizer\Hooks\GeneralUtilityHook::class . '->processMoveUploadedFile';

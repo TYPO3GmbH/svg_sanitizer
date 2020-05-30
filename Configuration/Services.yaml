@@ -1,0 +1,24 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  T3G\SvgSanitizer\:
+    resource: '../Classes/*'
+
+  T3G\SvgSanitizer\EventListener\ResourceStorageListener:
+    public: false
+    tags:
+      - name: event.listener
+        identifier: 'non-composer-class-loader'
+        method: 'preFileAdd'
+        event: TYPO3\CMS\Core\Resource\Event\BeforeFileAddedEvent
+      - name: event.listener
+        identifier: 'non-composer-class-loader'
+        method: 'preFileReplace'
+        event: TYPO3\CMS\Core\Resource\Event\BeforeFileReplacedEvent
+     - name: event.listener
+        identifier: 'non-composer-class-loader'
+        method: 'postFileSetContents'
+        event: TYPO3\CMS\Core\Resource\Event\BeforeFileContentsSetEvent
