@@ -8,7 +8,7 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'extension',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.13-10.4.99'
+            'typo3' => '8.7.13-11.0.99'
         ],
         'conflicts' => [],
     ],
