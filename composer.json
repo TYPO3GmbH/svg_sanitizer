@@ -18,9 +18,9 @@
     "minimum-stability": "dev",
     "require": {
         "enshrined/svg-sanitize": "^0.13.3",
-        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1 || 11.0.x-dev",
-        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1 || 11.0.x-dev",
-        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1 || 11.0.x-dev"
+        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1 || 11.0.*@dev",
+        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1 || 11.0.*@dev",
+        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1 || 11.0.*@dev"
     },
     "replace": {
         "t3g/svg_sanitizer": "self.version"
