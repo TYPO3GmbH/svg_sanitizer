@@ -4,18 +4,28 @@ on: [push, pull_request]
 
 jobs:
   build:
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        typo3: [^8.7, ^9.5, ^10.4, dev-master]
+        typo3: [^8.7, ^9.5, ^10.4]
         php: ['7.2', '7.3', '7.4']
+        include:
+          - typo3: dev-master
+            php: '7.4'
+          - typo3: dev-master
+            php: '8.0'
 
     steps:
-      - name: Start database server
-        run: sudo /etc/init.d/mysql start
-
       - name: Checkout
         uses: actions/checkout@v2
 

@@ -16,11 +16,12 @@
         }
     ],
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "enshrined/svg-sanitize": "^0.13.3",
-        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1 || 11.0.*@dev",
-        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1 || 11.0.*@dev",
-        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1 || 11.0.*@dev"
+        "enshrined/svg-sanitize": "^0.14",
+        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1 || 11.*@dev",
+        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1 || 11.*@dev",
+        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1 || 11.*@dev"
     },
     "replace": {
         "t3g/svg_sanitizer": "self.version"
@@ -29,7 +30,7 @@
         "bk2k/extension-helper": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.14",
         "overtrue/phplint": "^1.1",
-        "roave/security-advisories": "dev-master",
+        "roave/security-advisories": "dev-latest",
         "typo3/testing-framework": "^2 || ^4.9 || ^5.0 || ^6.2"
     },
     "config": {
