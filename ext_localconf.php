@@ -5,6 +5,17 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function () {
+    /*
+     * SVG sanitizer has been introduced to TYPO3 core
+     * see https://review.typo3.org/c/Packages/TYPO3.CMS/+/69809
+     *
+     * skip hook registration (and handling by this extension in general)
+     * in case corresponding handling class in TYPO3 core is available
+     */
+    if (class_exists(\TYPO3\CMS\Core\Resource\Security\SvgSanitizer::class)) {
+        return;
+    }
+
     $typo3Version = (defined('TYPO3_version'))
         ? TYPO3_version
         : \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getVersion();
