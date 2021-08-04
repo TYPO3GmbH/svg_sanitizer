@@ -1,6 +1,6 @@
 # SVG Sanitizer
 
-This extension will clean any SVG file uploaded to the TYPO3 system, but only with the default options.
+This extension will sanitize any SVG file uploaded to the TYPO3 system, but only with the default options.
 Please read the following section carefully for all details.
 
 ## Important to know
