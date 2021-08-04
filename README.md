@@ -1,12 +1,12 @@
 # SVG Sanitizer
 
-This extension sanitize every SVG file which is uploaded to the TYPO3 System but only for the default options.
-Please read the following section for all the details carfully.
+This extension will clean any SVG file uploaded to the TYPO3 system, but only with the default options.
+Please read the following section carefully for all details.
 
 ## Important to know
 
-This extension remove all script and data values in attributes.
-This means, that also an embedded PNG is removed. example:
+This extension removes all script and data values in attributes.
+This means that, for example, embedded graphics such as PNGs are also removed:
 
 ```
    // before parser
@@ -26,8 +26,8 @@ This means, that also an embedded PNG is removed. example:
 
 ## WARNING
 
-This extension can sanitize the files only if the upload happens by the defined ways above.
-For example, if a third party extension allows an upload and not make use of the core APIs described above, the sanitizer can't sanitize these files.
+This extension can only sanitize the files if the upload is done in one of the ways described above.
+For example, if a third-party extension allows to upload files and does not use the core APIs described above, SVG Sanitizer cannot sanitize these files.
 
 ## Credits
 
